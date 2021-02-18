@@ -5,9 +5,10 @@ from combine_noise import compute_noise_factors, combine_noise_maps
 """
 Script to combine Nicoletta's simulations into observed sky splits. 
 Will save a signal only file called SO_SAT_maps_sky_signal.fits
-and also save 4 obs splits called SO_SAT_obs_map_split_k_of4.fits
-The splits are saved as fits files with 18 maps, corresponding to TQU for 6 frequencies. 
+and also save 4 obs splits called SO_SAT_obs_map_split_kof4.fits
+All maps are saved as healpix fits files with 18 maps, corresponding to TQU for 6 frequencies. 
 Use .reshape(6, 3, -1) to get into frequency, TQU, npix shape. 
+DO NOT USE T. 
 """
 
 # Params to modify
