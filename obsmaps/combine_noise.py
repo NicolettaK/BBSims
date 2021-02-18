@@ -71,8 +71,8 @@ def combine_noise_maps(nmc, freq, noise_factors):
     nmc_str = str(nmc).zfill(4)
     dir_white = '/global/cfs/cdirs/sobs/users/krach/BBSims/NOISE_20201207/white/noise/'
     dir_oof = '/global/cfs/cdirs/sobs/users/krach/BBSims/NOISE_20201207/one_over_f/noise/'
-    white_map = hp.read_map(f'{dir_white}{nmc_str}/SO_SAT_{freq_str}_noise_FULL_{nmc_str}_white_20201207.fits', (0,1,2))
-    oof_map = hp.read_map(f'{dir_oof}{nmc_str}/SO_SAT_{freq_str}_noise_FULL_{nmc_str}_oof_20201207.fits', (0,1,2))
+    white_map = hp.read_map(f'{dir_white}{nmc_str}/SO_SAT_{freq_str}_noise_FULL_{nmc_str}_white_20201207.fits', (0,1,2), verbose=False)
+    oof_map = hp.read_map(f'{dir_oof}{nmc_str}/SO_SAT_{freq_str}_noise_FULL_{nmc_str}_oof_20201207.fits', (0,1,2), verbose=False)
     factor = noise_factors[freq_indx]
     tot_map = white_map*factor[0]+oof_map*factor[1]
     return tot_map

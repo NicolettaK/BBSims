@@ -4,19 +4,20 @@ from combine_noise import compute_noise_factors, combine_noise_maps
 
 """
 Script to combine Nicoletta's simulations into observed sky splits. 
-Will save a signal only file called 
-and also save 4 obs splits called
+Will save a signal only file called SO_SAT_maps_sky_signal.fits
+and also save 4 obs splits called SO_SAT_obs_map_split_k_of4.fits
 The splits are saved as fits files with 18 maps, corresponding to TQU for 6 frequencies. 
 Use .reshape(6, 3, -1) to get into frequency, TQU, npix shape. 
 """
 
 # Params to modify
-nrs = 0                     # realization number 0-500. 
-sdir = 'test/'              # directory to save sims
-sensitivity_mode = 1        # noise sensitivity mode: 1 baseline, 2 goal
-one_over_f = None           # one over f: None no 1/f, 0 pessimistic 1/f, 1 optimistic 1/f
-gauss_or_real = 'gauss'     # 'gauss' or 'real' for FG simulation type
-pysm_ver = None             # FG pysm version, required for 'real' FG sims. Choose from 'd0s0', 'd1s1', or 'dmsm'.
+nr = 0                          # realization number 0-500. 
+sdir = 'test/'                  # directory to save sims
+sensitivity_mode = 1            # noise sensitivity mode: 1 baseline, 2 goal
+one_over_f = None               # one over f: None no 1/f, 0 pessimistic 1/f, 1 optimistic 1/f
+gauss_or_real = 'gauss'         # 'gauss' or 'real' for FG simulation type
+pysm_ver = None                 # FG pysm version, required for 'real' FG sims. Choose from 'd0s0', 'd1s1', or 'dmsm'.
+overwrite = True                # overwrite existing files
 
 # Globals
 nside = 512
@@ -46,15 +47,16 @@ def get_noise(nrs, sensitivity_mode, one_over_f):
     return noisemaps
 
 # run script
-nrs = str(nrs).zfill(4)
+nrs = str(nr).zfill(4)
 skymaps = get_sky_signals(nrs, gauss_or_real, pysm_ver)
 sname = f'{sdir}SO_SAT_maps_sky_signal.fits'
-hp.write_map(sname, skymaps.reshape(18, -1))
+hp.write_map(sname, skymaps.reshape(18, -1), overwrite=overwrite)
 for k in range(4):
-    nrsx = nrs + k*500
-    noisemaps = get_noise(nrsx, sensitivity_mode, one_over_f)
+    nrx = nr + k*500
+    nrxs = str(nrx).zfill(4)
+    noisemaps = get_noise(nrxs, sensitivity_mode, one_over_f)
     sname = f'{sdir}SO_SAT_obs_map_split_{k+1}of4.fits'
     totalmaps = noisemaps + skymaps
-    hp.write_map(sname, totalmaps.reshape(18, -1))
+    hp.write_map(sname, totalmaps.reshape(18, -1), overwrite=overwrite)
 
 
