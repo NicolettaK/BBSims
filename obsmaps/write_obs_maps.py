@@ -1,3 +1,4 @@
+#!/global/homes/m/mabitbol/.conda/envs/myenv/bin/python
 import numpy as np
 import os
 import healpy as hp
@@ -80,7 +81,7 @@ def run(sdir, nr, sensitivity_mode, one_over_f, gauss_or_real, pysm_ver=None, ov
         overwrite = True                # overwrite existing files
     """
     nrs = str(nr).zfill(4)
-    sdir = get_path(sdir, nrs, sensitivity_mode, one_over_f, gauss_or_real, pysm_ver=None)
+    sdir = get_path(sdir, nrs, sensitivity_mode, one_over_f, gauss_or_real, pysm_ver)
     skymaps = get_sky_signals(nrs, gauss_or_real, pysm_ver)
     sname = f'{sdir}SO_SAT_maps_sky_signal.fits'
     hp.write_map(sname, skymaps.reshape(18, -1), overwrite=overwrite)

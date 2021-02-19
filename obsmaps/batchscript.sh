@@ -1,8 +1,16 @@
 #!/bin/bash
-#SBATCH --constraint=haswell
-#SBATCH --nodes=1
-#SBATCH --time=24:00:00
+#SBATCH -N 1
+#SBATCH -C haswell
+#SBATCH -q premium
+#SBATCH -J writeobs
+#SBATCH --mail-user=mabitbol15@gmail.com
+#SBATCH --mail-type=ALL
+#SBATCH -t 24:00:00
 
-module load python
-source activate myenv
-python write_obs_maps.py
+#OpenMP settings:
+export OMP_NUM_THREADS=1
+export OMP_PLACES=threads
+export OMP_PROC_BIND=spread
+
+
+srun -n 1 -c 64 --cpu_bind=cores write_obs_maps.py
