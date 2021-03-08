@@ -94,17 +94,19 @@ def run(sdir, nr, sensitivity_mode, one_over_f, gauss_or_real, pysm_ver=None, ov
         hp.write_map(sname, totalmaps.reshape(18, -1), overwrite=overwrite)
     return 
 
-sdir = '/global/cfs/cdirs/sobs/users/mabitbol/sims'
-gauss_or_real = 'gauss'
-pysm_ver = None
-overwrite = True
-for k in range(101, 500):
-    for sensitivity_mode in [1, 2]:
-        for one_over_f in [None, 0, 1]:
-            run(sdir, k, sensitivity_mode, one_over_f, gauss_or_real, pysm_ver, overwrite)
+#sdir = '/global/cfs/cdirs/sobs/users/mabitbol/sims'
+#gauss_or_real = 'gauss'
+#pysm_ver = None
+#overwrite = True
+#for k in range(500):
+#    for sensitivity_mode in [1, 2]:
+#        for one_over_f in [None, 0, 1]:
+#            run(sdir, k, sensitivity_mode, one_over_f, gauss_or_real, pysm_ver, overwrite)
 
+sdir = '/global/cfs/cdirs/sobs/users/mabitbol/sims'
 gauss_or_real = 'real'
-for k in range(500):
+overwrite = True
+for k in range(249, 500):
     for pysm_ver in realsims:
         for sensitivity_mode in [1, 2]:
             for one_over_f in [None, 0, 1]:

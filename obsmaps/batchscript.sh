@@ -2,10 +2,10 @@
 #SBATCH -N 1
 #SBATCH -C haswell
 #SBATCH -q premium
-#SBATCH -J writeobs
+#SBATCH -J writeobs1
 #SBATCH --mail-user=mabitbol15@gmail.com
 #SBATCH --mail-type=ALL
-#SBATCH -t 24:00:00
+#SBATCH -t 24:04:00
 
 #OpenMP settings:
 export OMP_NUM_THREADS=1
